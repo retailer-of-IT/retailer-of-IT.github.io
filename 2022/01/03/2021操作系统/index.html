@@ -4,15 +4,87 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>2021操作系统 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="#Chapter 2：进程的描述与控制#程序执行 程序顺序执行时的特征  顺序性  封闭性  可再现性    并发和并行  并发：一组逻辑上互相独立的程序在执行时间上客观重叠，即一个还未结束，另一个已经开始。 并行：一组程序在同一物理时刻同时执行   并发执行的特征  间断性 失去封闭性 不可再现性    #进程 进程的特征 动态性 独立性 并发性 异步性 结构化     进程 &#x3D; 程序 + 数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021操作系统">
+<meta property="og:url" content="http://example.com/2022/01/03/2021%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#Chapter 2：进程的描述与控制#程序执行 程序顺序执行时的特征  顺序性  封闭性  可再现性    并发和并行  并发：一组逻辑上互相独立的程序在执行时间上客观重叠，即一个还未结束，另一个已经开始。 并行：一组程序在同一物理时刻同时执行   并发执行的特征  间断性 失去封闭性 不可再现性    #进程 进程的特征 动态性 独立性 并发性 异步性 结构化     进程 &#x3D; 程序 + 数据">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/8c0a91e0-0a28-4da4-883f-e6c0d7a387da/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121648Z&X-Amz-Expires=60&X-Amz-Signature=6d7b33fb6eea3bebe9df594f7a8dd259cc41d0977f484e487ae8dc056670fb46&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/9f26d548-53e8-489d-98a6-40f6d15ccf04/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121648Z&X-Amz-Expires=60&X-Amz-Signature=c981b5238c3391983864dbe5a7ae8b78c70041fa1aa24865f9cb7716c568fa74&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/22f511e0-4507-4b75-8a3e-ed7e5feac8ad/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121648Z&X-Amz-Expires=60&X-Amz-Signature=1a87968e0afff38b451ecf5e3018cc3781db707525bc36737f855174e6303836&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/a5dfdaef-1dfe-4d96-8316-f979ce9d7840/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121648Z&X-Amz-Expires=60&X-Amz-Signature=733bb8aa6df5b608870d85d2d285fcf723f02094afd143cf65e954531b2d7534&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/315ebb0d-13ac-4a8e-bd2c-e9035d54b232/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121648Z&X-Amz-Expires=60&X-Amz-Signature=383752300dc433fe66f39c52c7ab8648587f12c6ee0fc928e605695a519be5ec&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/c3b68c18-4532-454c-a38b-f8502f9cc4bd/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121648Z&X-Amz-Expires=60&X-Amz-Signature=bbf10fe81fa553f17f15f626c9616e03d3a2d872117b8a4308472061b78766e1&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/ff4a1bee-9133-4704-a099-9edd06fe297e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121648Z&X-Amz-Expires=60&X-Amz-Signature=18a3cbbdae6d66fe30515b2cb115b558c0d549aa76ba8d12f3a488b83fee1994&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/703d60cc-b058-40db-9e36-ed7035c14ac2/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121648Z&X-Amz-Expires=60&X-Amz-Signature=436022d1762e726dbf4128d4464113ffd7ce7912504f5d687dada8a75529e26e&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/77d0e958-ea90-485a-a08d-dd267d41e03d/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=6930d2fad8e5a874376f0a7005d0d73d682861babf802845bff9b6bb626ebb83&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/7f0df266-bcc4-45b3-8cde-f290630e8716/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=865f122269f71cd9eb06d83602eb65d8d3480d128c0e343d6b5925924670ceb3&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/edf7cabd-9eab-4025-903a-7a128ae68fd7/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=88643d772ec34828a8416a8d54fff73a141d4d4d965ee4e74b1c1879085609ae&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/21c48c13-0246-433c-9869-98003545987a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=36190f50c9bb87069264e0a11c9f1e6ae5d5a5fb859c0c3520443beba412489d&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/305f68e2-5fba-404c-b672-bd74436ccf2e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=62dbbee2cdb59711ffd0ea456abcf88ce29927fc9ebf4d9a47a75fe5425259d2&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/cf392cde-57d4-4a79-b52d-64b1445522aa/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=bf0bc8237dc1df310e3dd2250466c2c0dc81f4bd384107a8d9792cbc0ca85bfa&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/0b9046d4-f527-4589-91b9-f09e2e4217cb/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=ad4296346b28555e7fd0d6dd9abc67a8f8f6b43f67096facaa69ed0d2602f942&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/d1c702d9-0422-4c90-bd05-cbbac80915e0/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=c3319c81d45dd6368fa60372522af766c4062e544d7e0005b024398778f44ad5&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/a22446fe-b932-4843-99a6-8c8f12cc389a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=387db8e8741cc8b93d62c9dc12584f2754c2d3e7347e7e4f459d36bd85733650&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/299f784a-94f1-4fe5-aad6-3152fbfe38a3/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=fee9bc02a630ee8d0d6f2c37793fc1194592d6c73d7b46491a2252d858b937b4&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/d182ae7b-5391-48ef-a1bb-bbb896535690/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=cc590c59a4ddcb57bc8f95ddfaf0aee8fd8047aadfc416336c66b31d20132f30&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/aad687b1-7ac7-4b41-bc90-a10f8a05f062/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=0029ff6a37b76cbf42996a53dd2249602e4ea16b0dded952b840edb221833205&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/b67b33a6-0228-4afc-868c-f053c0b06b4c/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=e127fe94fa782000c99092acb24b10b4506bf639231350f9b203aa8224301985&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/c7d18b12-1233-4883-8337-5a2f22057452/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=558a07c334c5ebe001e657c8c30dcf6d07813ab0f56ce1ebd5415c2ecca5da78&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/88af5422-5cea-4b32-8270-e2fde16755e4/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=03e4731155823d9d8a945e6bd7a24a2ee662f909baf868213a2e12b9394a28ec&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/5acc8095-d978-456d-ba93-77ae69aa3551/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=8d39179c17ee32017c46fbf6b23907df5d9fe9d34f230711c5c1d1c9b038de85&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/190de758-970c-431a-b12b-b76db90c1425/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=da167e00033bebbf632c64d9be1b6ccd53556d927577b1da3e5c01d9af7beddc&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/7796073e-b42f-413d-bc1f-da68fbd25705/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=173e9e0bc262dceae985ed15f7e1d4120b4bc3f25794bb19e36628091b403542&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/542d23b9-8c02-4174-8ae3-4807a07fd8e3/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=f4a88550013fc8efc4278e0a63829c9fbecab06c89941a80e0ed6e03e9d1cd82&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/920ce905-5164-432c-b1b8-d36a4af8ca17/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=0e3b2f055bf442cbdfd28ca6b018941b822d3093358fcf340329cb46cad5ad85&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/6c01a7f8-bf22-45dc-a464-5007c92cc61b/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=1e237ae96ce66da7e485490508ad603e7638cb6c20b4433fd59ce5b2794f79c8&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/55307e6c-60f0-4913-b694-bfe662f8095e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=34a73ff8f85a4ebf90e3698b627736312a8853ad8a9c8de194e20c22131fcfa2&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/aa931ff7-a936-4ba1-8986-055de4a541c0/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=cab0eaed13134a39da2295c8e790ae8441bcd67ca8dbd949e09f72360abb6efc&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/76661ba6-0306-4010-a008-d308f7b1bfd2/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=43790e8e9d231a1cff38f97cf721ec7ecb7dc0378a988a24de0556bc3de07914&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/42e967da-46e5-4a45-a37c-40607fffc915/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=a24049defd785ed29e02b3f288aa60599797780ec2797318e980aae191b2b402&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/c48f3c67-6c1d-44c1-961c-a0e564b2daf7/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=a74c4341e99f3f664cc2e49ba5d040e8ee4c1b98245a1b264b3163a8254c6b32&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/0f4b6070-e774-4a67-9660-a5da3e880d82/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=13f4d9f4acd2d0138d354f2d1df06e00bf6ec3aa06a28d8e975b90c1833ae6f6&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/0745fb33-c2e3-49c8-84ec-1b6383d90d5a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=8c18ff42696edadf6b3b5e7cadff77934167c5e36ea04fbdc2142a8dd12e276f&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/0f723291-6af6-4086-a9d5-4fb76a7b6e5c/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=5877e98dcad3b457a5698211d65aa6381ef5d4400b8f6f8272edc94c655b839c&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/128483dc-b7fa-40fc-bbee-9e5e20c67ad6/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=ada882e609266ee9cef72bc8c80adf7c78605b178c369d82be5a3f274a8cfc84&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/9f8ac43c-266b-4834-a21c-f63e4b50d4df/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=781ce9ffa12723d573fb3c534756198d9199c3c443c16c8245f217ea75b36001&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/5712efd5-8dfd-48b8-a8be-c7571cb7eb6f/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=f9d5046d1ad34b0adecb86580492b1ce993419d051fbdd37ef2b1c7574a3f2d5&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/84405a94-a1bc-4255-9b40-91384fc59f74/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=d911afa023a31791828022fc49922d2ee1e3526cf2c256864a90b7f0bc4b07da&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/086d54cc-3ee4-4487-adb8-f02c5f7bcf54/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=740f2048e3dd66145f3cdfab9cd1af2adfbbb41d0d6fcb214201eba819f7d02c&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/ba64b128-4c19-40f0-bbe9-c7e67b996840/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=5b96b830cc4fb67a54560acc64a56b3185d9c53f8073032f5deff339f7f76d2c&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/0913e929-5c90-4a65-8a92-c0319d8bb48d/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=d7ad9c278276cea6e28a28b501f9afa5dafafa5e1a4c455c94c98353f0dd4069&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/ea06f9fd-1a0c-49b6-8ef8-4bb13f46c8bc/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=7add5f352c34b4720f1ab6a77fc03d98cfd1bf7c3f49b0992f93c8162530cec9&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/6a2c7058-0395-400c-a853-d23f1df8ce73/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=484b507ac7ea84ae9e4ec0f085a223388a5d6dc7fec3c9b93fe8eb3059a84981&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/420e615d-43f7-4250-b28f-4d3d3519b390/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=337e00a60a0127d337dc6e64b6440d08bac43eacd97a8da5e07c26363b277f12&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/7001e0d6-a372-40ee-aa8d-9f5136e699a1/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=fcfc598abd395ffea4a8f523c0a7a4fab2b256551f4040cc70b397c3ee7f0147&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/473c4328-6806-4292-9599-aeff9b6f3a60/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=65cdb05ff973490c126c4dda320f1844456affaf02e518c45c5f775510b07f77&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/44cda281-2ae7-4771-91dc-9d9fb86ea0d6/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=9319c605fb282469d217839e86b4e924506d2af7897244d5679a00e69f2c0cbc&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/822242fa-6ed5-453f-9077-ba7db58d9461/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=f332ad3e79b72a7ca0194dd9370b6d7f56fd77111de09544b013c456b5a7b953&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/67e63a3f-7514-471c-9f3b-f86dddc4daf1/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=335850918f4145943ba63c02f15d902c00033c751845cf3e1976e68889cc89be&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/88f0f1cb-1d7e-4c89-be0d-dbf6c6b61395/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=30302069b0f3290f10ced98ce0c8ce4d892522cc70ed623da82af746e791ec6d&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/568ad217-d249-4260-96f7-1a1bb0723e64/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=17978896983fbf881cb974167d4032b5e5193f361be521f6305e7f249ccbb25d&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/5b5f10e0-70c3-42ad-8b1e-e4e15f49dbc1/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=73ae00ca28da4a0f402a9622b4f09049f77e5331df8e24d4b1eaaa11ff9ebcdf&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/fec81775-24a9-4793-b210-60355fe2bd20/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=3876323366426580d8885b059139ed625ac2e42efba0a17091979d031e694ca7&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/424cf052-5a47-463e-a39d-9a6e1a7ffadd/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=902edbdb9e17cba81e9ef9de6759b82361af0487d034d9db74f0c76588093f4a&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/5ef81ee9-9000-40dd-ad34-defefaca8299/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=5ecc1aa224e3c3b6a8c805ec48cc2d835f0bc3e46314566c83090e6741038afe&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/fe05260e-fd54-4ee2-9c0f-56239d9d6946/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=2c38feeacdea609e1e4851d1da4a80f50958b03b92a9f8bf622783354cdaa8e9&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/8c0230dd-68ee-4fd5-8d1f-0af534563df9/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=6bacee71e08eb8a50b52b693aec4eeaeffcae25ac4c88eeabe1431cdbed82834&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/4e3c32b8-42d7-46a2-a52d-72818a56843b/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=87351d93d1b94fa2849c74db2e3ce855e546b6c5800a84524d6959ca4770b5ff&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/118c8bd9-955a-4f98-aa31-9a748af79d39/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=7a0670cf2a721d5af029fde81e9ebe7caa592329100414ec40ad13db87a2c8da&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/0fe814f8-41ef-4a9c-a37c-b6efd96b1cfb/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=59c537e68ef0cde9333196883f90c52e02b6b879589ab50489f5cb0e12611cea&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/022c1812-8437-4fc0-822d-19aa3457c7d9/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=ec43593d3aa5458e8468ed3c62df144b5e9a766532b5859b36e446284ac46844&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/d6cddd42-cbbe-4141-8457-720e47b1092e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=7edf7d0c9755e94797aba141c590da9a477ad391f1c93d54de4a4abfa7fba942&X-Amz-SignedHeaders=host">
+<meta property="og:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/233ac4c0-da35-49f3-9944-b3b60f272a7b/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121649Z&X-Amz-Expires=60&X-Amz-Signature=3b25b9e33b80abf34574eae2aa695582575666af67550aacf118403976aed1de&X-Amz-SignedHeaders=host">
+<meta property="article:published_time" content="2022-01-03T05:31:23.000Z">
+<meta property="article:modified_time" content="2022-01-03T05:33:18.451Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="专业课">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://oss.chive.vaa.la/outline/uploads/63d01824-bff0-49f4-8ddd-f038dbf1aa06/8c0a91e0-0a28-4da4-883f-e6c0d7a387da/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=sfedkavphknbrs/20211225/cn-chive-1/s3/aws4_request&X-Amz-Date=20211225T121648Z&X-Amz-Expires=60&X-Amz-Signature=6d7b33fb6eea3bebe9df594f7a8dd259cc41d0977f484e487ae8dc056670fb46&X-Amz-SignedHeaders=host">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -69,9 +141,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-2021操作系统" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-2021操作系统" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/01/03/2021%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="article-date">
   <time class="dt-published" datetime="2022-01-03T05:31:23.000Z" itemprop="datePublished">2022-01-03</time>
@@ -84,8 +154,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/01/03/2021%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">2021操作系统</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      2021操作系统
     </h1>
   
 
@@ -1845,62 +1915,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/01/03/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-01-03T03:14:09.529Z" itemprop="datePublished">2022-01-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/01/03/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2022/01/03/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/01/03/hello-world/" data-id="ckxy8ytfr0003f4uqe4b1052h" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
 
 
 </section>
